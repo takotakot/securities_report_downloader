@@ -1,4 +1,5 @@
-class SeleniumPage::Base < ApplicationRecord
+class SeleniumPage::Base
+  # < ApplicationRecord
   attr_accessor :browser, :wait
 
   CHROME_OPTIONS = Selenium::WebDriver::Chrome::Options.new(args: [
