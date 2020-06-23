@@ -33,3 +33,7 @@ module SbisecPostubDownloader
     config.generators.system_tests = nil
   end
 end
+
+if Rails.application.credentials.driver_path.present?
+  Selenium::WebDriver::Chrome::Service.driver_path = Rails.application.credentials.driver_path
+end
