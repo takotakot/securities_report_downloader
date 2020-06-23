@@ -22,6 +22,11 @@ class SeleniumPage::Base
     self
   end
 
+  def wait(target)
+    @wait.until { @browser.find_elements(target).present? && @browser.find_element(target).displayed? }
+    self
+  end
+
   def wait_css(css)
     wait.until { @browser.find_element(css).enabled? }
     self
@@ -33,6 +38,7 @@ class SeleniumPage::Base
 
   def click(element)
     @browser.execute_script("arguments[0].click();", element)
+    self
   end
 
   def click_css(css)
