@@ -51,5 +51,6 @@ class SbisecPage::Base < SeleniumPage::Base
 
   def go_postub
     @browser.get JUMP_POSTUB_URL
+    SbisecPage::Postub.new(@browser)
   end
 end
