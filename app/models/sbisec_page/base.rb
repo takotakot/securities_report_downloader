@@ -39,21 +39,22 @@ class SbisecPage::Base < SeleniumPage::Base
     self
   end
 
-  # def switchnaviMain?
-  #   if @browser.current_url != SWITCHNAVIMAIN_URL
-  #     return false
-  #   end
+  def switchnaviMain?
+    if @browser.current_url != SWITCHNAVIMAIN_URL
+      return false
+    end
 
-  #   begin
-  #     @browser.find_element(class: 'headC01B')
-  #   rescue => exception
-  #     return false
-  #   end
+    begin
+      @browser.find_element(class: 'headC01B')
+    rescue => exception
+      return false
+    end
 
-  #   true
-  # end
+    true
+  end
 
   def go_postub
+    go_switchnaviMain unless switchnaviMain?
     @browser.get JUMP_POSTUB_URL
     SbisecPage::Postub.new(@browser)
   end
