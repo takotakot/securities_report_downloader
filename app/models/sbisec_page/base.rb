@@ -30,10 +30,14 @@ class SbisecPage::Base < SeleniumPage::Base
     self
   end
 
-  # def go_switchnaviMain
-  #   @browser.find_element(id: 'link02M').find_element(link_text: '電子交付書面').click
-  #   self
-  # end
+  def go_switchnaviMain
+    # move_to(@browser.find_element(id: 'smp'))
+    move_to(@browser.find_element(id: 'link02M').find_element(xpath: "//img[@title='口座管理']"))
+    # wait_css(link_text: '電子交付書面')
+    @wait.until { @browser.find_element(id: 'link02M').find_element(link_text: '電子交付書面').present? && @browser.find_element(id: 'link02M').find_element(link_text: '電子交付書面').displayed? }
+    @browser.find_element(id: 'link02M').find_element(link_text: '電子交付書面').click
+    self
+  end
 
   # def switchnaviMain?
   #   if @browser.current_url != SWITCHNAVIMAIN_URL
