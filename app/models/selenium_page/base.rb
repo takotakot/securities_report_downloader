@@ -44,4 +44,9 @@ class SeleniumPage::Base
   def click_css(css)
     click @browser.find_element(css)
   end
+
+  def move_to(element)
+    @browser.action.move_to(element).perform
+    self
+  end
 end
