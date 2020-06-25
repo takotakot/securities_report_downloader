@@ -42,4 +42,13 @@ class SbisecPage::Postub < SbisecPage::Base
   # TODO
   def dl_record
   end
+
+  def messages
+    @browser.find_element(class: 'message-list').find_elements(class: 'message')
+  end
+
+  # for test
+  def messages_inner_html
+    messages.each {|el| p el.attribute('innerHTML')}
+  end
 end
