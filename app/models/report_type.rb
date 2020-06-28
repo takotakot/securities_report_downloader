@@ -6,4 +6,6 @@ class ReportType < ApplicationRecord
     {id: 4, name: '運用報告書'},
     {id: 5, name: 'その他'},
   ]
+
+  ID_運用報告書 = 4
 end
