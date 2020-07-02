@@ -49,4 +49,9 @@ class SeleniumPage::Base
     @browser.action.move_to(element).perform
     self
   end
+
+  def browser_back
+    @browser.navigate.back
+    self
+  end
 end
