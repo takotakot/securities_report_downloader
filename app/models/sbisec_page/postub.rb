@@ -91,4 +91,14 @@ class SbisecPage::Postub < SbisecPage::Base
   def messages_inner_html
     messages.each {|el| p el.attribute('innerHTML')}
   end
+
+  def go_detail_page(system_id, message_element)
+    message_element.find_element(class: 'title').find_element(tag_name: 'a').click
+    self
+  end
+
+  def detail_page_download_pdf
+    @browser.find_element(class: 'display-area').find_element(link_text: 'ダウンロード').click
+    self
+  end
 end
