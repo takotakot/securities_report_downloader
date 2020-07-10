@@ -19,24 +19,42 @@ class SbisecPage::Postub < SbisecPage::Base
   def set_line_per_page
   end
 
-  # mock
   def go_last_page
+    @browser.find_element(class: 'pager').find_element(css: '._arrow.-outer.-right').click
     self
   end
 
-  # mock
   def go_first_page
+    @browser.find_element(class: 'pager').find_element(css: '._arrow.-outer.-left').click
     self
   end
 
-  # mock
-  def first_page?
-    true
+  def go_next_page
+    @browser.find_element(class: 'pager').find_element(css: '._arrow:not(.-outer).-right').click
+    self
   end
 
-  # mock
+  def go_prev_page
+    @browser.find_element(class: 'pager').find_element(css: '._arrow:not(.-outer).-left').click
+    self
+  end
+
+  def first_page?
+    begin
+      @browser.find_element(class: 'pager').find_element(css: '._arrow.-outer.-left')
+      false
+    rescue NoSuchElementError => exception
+      true
+    end
+  end
+
   def last_page?
-    true
+    begin
+      @browser.find_element(class: 'pager').find_element(css: '._arrow.-outer.-right')
+      false
+    rescue NoSuchElementError => exception
+      true
+    end
   end
 
   def scrape_report_record(system_id, message_element)
