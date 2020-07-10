@@ -83,13 +83,21 @@ class SbisecPage::Postub < SbisecPage::Base
 
     begin
       go_detail_page(system_id, message_element).detail_page_download_pdf.browser_back
+      wait_download
       repo.set_file(system_id.to_s + '.PDF'.freeze)
       repo.save!
     rescue => exception
       raise exception
     end
 
+    # TODO
+    # repo.set_manifest
+    # repo.rename_file
     self
+  end
+
+  def wait_download
+    sleep 2
   end
 
   def dl_record_with_check(message_element)
@@ -132,7 +140,7 @@ class SbisecPage::Postub < SbisecPage::Base
           ! title_text.index(search).nil?
         }
       else
-
+        # TODO
       end
     end
   end
