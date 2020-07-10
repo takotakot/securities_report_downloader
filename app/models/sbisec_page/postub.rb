@@ -39,8 +39,7 @@ class SbisecPage::Postub < SbisecPage::Base
     true
   end
 
-  # TODO
-  def dl_record(system_id, message_element)
+  def scrape_report_record(system_id, message_element)
     # date, type, title, limit
     # p message_element.find_element(class: 'date').text
     # p message_element.find_element(class: 'type').text
@@ -70,11 +69,22 @@ class SbisecPage::Postub < SbisecPage::Base
     end
     report_data[:report_title_id] = title_id
 
-    p report_data
-    repo = Report.create(report_data)
+    report_data
+  end
+
+  def dl_record(system_id, message_element)
+    report_data = scrape_report_record(system_id, message_element)
+
+    # p report_data
+    repo = Report.find_by(system_id: system_id)
+    if repo.nil? || ! repo.downloaded
+      repo = Report.create(report_data)
+    end
 
     begin
       go_detail_page(system_id, message_element).detail_page_download_pdf.browser_back
+      repo.set_file(system_id.to_s + '.PDF'.freeze)
+      repo.save!
     rescue => exception
       raise exception
     end
@@ -84,8 +94,9 @@ class SbisecPage::Postub < SbisecPage::Base
 
   def dl_record_with_check(message_element)
     system_id = message2system_id(message_element)
+    repo = Report.find_by(system_id: system_id)
 
-    if Report.find_by(system_id: system_id).nil?
+    if repo.nil? || ! repo.downloaded
       dl_record(system_id, message_element)
     end
 
