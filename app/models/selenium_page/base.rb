@@ -6,6 +6,7 @@ class SeleniumPage::Base
   ].concat( Rails.env.development? ? [] : ['headless'] )
   ).freeze
   BROWSER_TIME_OUT = 20
+  NoSuchElementError = Selenium::WebDriver::Error::NoSuchElementError
 
   def initialize(browser)
     @browser = browser
