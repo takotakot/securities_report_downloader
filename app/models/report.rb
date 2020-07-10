@@ -11,10 +11,15 @@ class Report < ApplicationRecord
   end
 
   def set_file(given_filename)
-    raise unless FileTest.exist?(given_filename)
-    raise if FileTest.zero?(given_filename)
-    # TODO: type
+    raise unless check_file(given_filename)
     self.filename= given_filename
+  end
+
+  def check_file(given_filename)
+    return false unless FileTest.exist?(given_filename)
+    return false if FileTest.zero?(given_filename)
+    # TODO: type
+    true
   end
 
   def rename_file
