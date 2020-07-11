@@ -57,6 +57,22 @@ class SbisecPage::Postub < SbisecPage::Base
     end
   end
 
+  def download_all_backward
+    go_last_page unless last_page?
+    while true
+      download_backward_in_page
+      break if first_page?
+      go_prev_page
+    end
+  end
+
+  def download_backward_in_page
+    count = messages.count
+    for i in 0...messages.count
+      dl_record_with_check(messages.reverse[i])
+    end
+  end
+
   def scrape_report_record(system_id, message_element)
     # date, type, title, limit
     # p message_element.find_element(class: 'date').text
