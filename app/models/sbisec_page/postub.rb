@@ -169,12 +169,9 @@ class SbisecPage::Postub < SbisecPage::Base
       title[:id]
     else
       unless title_text.index('運用報告書'.freeze).nil?
-        title = ReportTitle::HASH_DATA.detect {|t|
-          search = '「' + t[:name] + '」'
-          ! title_text.index(search).nil?
-        }
+        ReportTitle::ID_運用報告書
       else
-        # TODO
+        ReportTitle::ID_UNDEFINED
       end
     end
   end
