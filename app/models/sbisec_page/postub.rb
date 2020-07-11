@@ -40,7 +40,56 @@ class SbisecPage::Postub < SbisecPage::Base
   end
 
   # TODO
-  def dl_record
+  def dl_record(system_id, message_element)
+    # date, type, title, limit
+    # p message_element.find_element(class: 'date').text
+    # p message_element.find_element(class: 'type').text
+    # p message_element.find_element(class: 'title').text
+    # p message_element.find_element(class: 'limit').text
+
+    # download new
+    report_data = {
+      system_id: system_id,
+      issue_date: message_element.find_element(class: 'date').text,
+      limit_date: message_element.find_element(class: 'limit').text,
+    }
+
+    type = message_element.find_element(class: 'type').text
+    type_id = type_text2type_id(type)
+    report_data[:report_type_id] = type_id
+
+    title = message_element.find_element(class: 'title').text
+    if type_id == ReportType::ID_運用報告書
+      title_id = ReportTitle::ID_運用報告書
+      report_data[:special_title] = special_title(title)
+    else
+      title_id = title_text2title_id(title)
+      if title_id == ReportTitle::ID_UNDEFINED
+        report_data[:special_title] = special_title(title)
+      end
+    end
+    report_data[:report_title_id] = title_id
+
+    p report_data
+    repo = Report.create(report_data)
+
+    begin
+      go_detail_page(system_id, message_element).detail_page_download_pdf.browser_back
+    rescue => exception
+      raise exception
+    end
+
+    self
+  end
+
+  def dl_record_with_check(message_element)
+    system_id = message2system_id(message_element)
+
+    if Report.find_by(system_id: system_id).nil?
+      dl_record(system_id, message_element)
+    end
+
+    self
   end
 
   def message2system_id(message_element)
