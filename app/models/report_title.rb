@@ -22,4 +22,8 @@ class ReportTitle < ApplicationRecord
 
   ID_UNDEFINED = 1
   ID_運用報告書 = 12
+
+  def for_filename
+    name
+  end
 end
