@@ -18,6 +18,7 @@ class ReportTitle < ApplicationRecord
     {id: 16, name: '信用取引配当落調整金のお知らせ'},
     {id: 17, name: '外国株式等配当金等のご案内（兼）支払通知書'},
     {id: 18, name: '外貨建ＭＭＦ再投資のご案内（兼）支払通知書'},
+    {id: 19, name: '株式募集取引報告書'},
   ]
 
   ID_UNDEFINED = 1
