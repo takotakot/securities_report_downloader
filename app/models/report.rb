@@ -24,6 +24,27 @@ class Report < ApplicationRecord
 
   def rename_file
     # move file to the place where desined in the manifest
-    self
+    raise unless check_file(filename)
+
+    extname = File.extname(filename)
+    cur_dirname = File.dirname(filename)
+    cur_basename_without_ext = File.basename(filename, extname)
+
+    # TODO: manifest
+    # TODO: change_manifest
+    date = issue_date
+    new_dir = date.year.to_s + File::Separator + format('%02d', date.month)
+    FileUtils.mkdir_p(new_dir)
+    new_baseename = system_id + '_' + report_title.for_filename + extname
+    new_filename = new_dir + File::Separator + new_baseename
+
+    begin
+      File.rename(filename, new_filename)
+      # TODO: database error
+      self.filename= new_filename
+      save!
+    rescue => exception
+      false
+    end
   end
 end

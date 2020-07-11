@@ -92,7 +92,7 @@ class SbisecPage::Postub < SbisecPage::Base
 
     # TODO
     # repo.set_manifest
-    # repo.rename_file
+    repo.rename_file
     self
   end
 
