@@ -92,6 +92,7 @@ class SbisecPage::Postub < SbisecPage::Base
       break if first_page?
       go_prev_page
     end
+    self
   end
 
   def download_backward_in_page
@@ -99,6 +100,7 @@ class SbisecPage::Postub < SbisecPage::Base
     for i in 0...messages.count
       dl_record_with_check(messages.reverse[i])
     end
+    self
   end
 
   def scrape_report_record(system_id, message_element)
