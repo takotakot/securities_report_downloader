@@ -35,7 +35,7 @@ class Report < ApplicationRecord
     date = issue_date
     new_dir = date.year.to_s + File::Separator + format('%02d', date.month)
     FileUtils.mkdir_p(new_dir)
-    new_baseename = system_id + '_' + report_title.for_filename + extname
+    new_baseename = system_id + '_' + title_for_filename + extname
     new_filename = new_dir + File::Separator + new_baseename
 
     begin
@@ -46,5 +46,15 @@ class Report < ApplicationRecord
     rescue => exception
       false
     end
+  end
+
+  def title_for_filename
+    # special_list = [
+    #   ReportTitle::ID_UNDEFINED,
+    #   ReportTitle::ID_運用報告書,
+    # ]
+
+    return special_title unless special_title.nil?
+    return report_title.for_filename
   end
 end
