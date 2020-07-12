@@ -111,7 +111,7 @@ class SbisecPage::Postub < SbisecPage::Base
 
     # p report_data
     repo = Report.find_by(system_id: system_id)
-    if repo.nil? || ! repo.downloaded
+    if repo.nil?
       repo = Report.create(report_data)
     end
 
