@@ -4,6 +4,8 @@ class Report < ApplicationRecord
 
   attr_accessor :manifest
 
+  WAIT_DOWNLOAD = 10
+
   def downloaded
     return false if filename.nil?
     return false if filename == ""
@@ -16,7 +18,16 @@ class Report < ApplicationRecord
   end
 
   def check_file(given_filename)
-    return false unless FileTest.exist?(given_filename)
+    file_exist = FileTest.exist?(given_filename)
+    unless file_exist
+      WAIT_DOWNLOAD.times{
+        sleep 1
+        file_exist = FileTest.exist?(given_filename)
+        break if file_exist
+      }
+    end
+    return false unless file_exist
+
     return false if FileTest.zero?(given_filename)
     # TODO: type
     true
