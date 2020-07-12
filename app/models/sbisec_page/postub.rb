@@ -85,6 +85,11 @@ class SbisecPage::Postub < SbisecPage::Base
     end
   end
 
+  def download_all
+    go_storage.download_all_backward
+    go_post.download_all_backward
+  end
+
   def download_all_backward
     go_last_page unless last_page?
     while true
