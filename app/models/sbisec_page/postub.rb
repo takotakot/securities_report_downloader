@@ -1,13 +1,41 @@
 class SbisecPage::Postub < SbisecPage::Base
 
-  # mock
   def post?
-    true
+    begin
+      @browser.find_element(class: 'tab-bar').find_element(css: '.tab._post.-on')
+      return true
+    rescue => exception
+      return false
+    end
+    false
   end
 
-  # mock
-  def trash?
-    true
+  def storage?
+    begin
+      @browser.find_element(class: 'tab-bar').find_element(css: '.tab._storage.-on')
+      return true
+    rescue => exception
+      return false
+    end
+    false
+  end
+
+  def go_post
+    return self if post?
+    begin
+      @browser.find_element(id: 'post').click
+    rescue => exception
+    end
+    self
+  end
+
+  def go_storage
+    return self if storage?
+    begin
+      @browser.find_element(id: 'trash').click
+    rescue => exception
+    end
+    self
   end
 
   # mock
