@@ -1,24 +1,69 @@
-# README
+# Securities Report Downloader
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Features
 
-Things you may want to cover:
+証券会社で交付される「報告書」の一括ダウンロードを支援する。現時点で、SBI 証券にのみ対応している。
 
-* Ruby version
+## Deployment
 
-* System dependencies
+**Requirements:**
 
-* Configuration
+- **Ruby** 2.7.1 is tested
+- **Chrome** 83.0.4103.116 is tested
+- **ChromeDriver** 83.0.4103.39 is tested
 
-* Database creation
+**Main technology:**
 
-* Database initialization
+- **Ruby on Rails** 6.0.3.2 is used
+- **Selenium::WebDriver::Chrome**
 
-* How to run the test suite
+Currently only `RAILS_ENV=development` is tested.
 
-* Services (job queues, cache servers, search engines, etc.)
+1. git colne
 
-* Deployment instructions
+        $ bin/rails credentials:edit
 
-* ...
+2. bundle install
+
+        $ cd securities_report_downloader
+        $ bundle install --path vendor/bundle
+
+4. Database creation
+    ```
+    bin/rails db:create
+    ```
+
+5. Database initialization
+    ```
+    bin/rails db:migrate && bin/rails db:seed
+    ```
+
+6. Seve credentials like below:
+    ```
+    sbisec:
+      id: <<id here>>
+      password: <<password here>>
+    driver_path: <<chromedriver path>>
+    download_path: <<rails dir for browser>>
+    ```
+
+## Usage
+
+1. Open rails console
+
+        $ bin/rails c
+
+2. Run commands
+
+    ```
+    # open browser
+    browser = WebDriverUtil.new_browser
+    # login and goto postub page
+    page = SbisecPage::Base.new(browser).login_with(Rails.application.credentials.sbisec[:id], Rails.application.credentials.sbisec[:password]).go_postub
+    # download
+    page.download_all
+    ```
+
+## License
+
+Released under the [MIT License](https://opensource.org/licenses/MIT).
