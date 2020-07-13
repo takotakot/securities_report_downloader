@@ -60,6 +60,12 @@ class Report < ApplicationRecord
   end
 
   def title_for_filename
+    title_for_filename_raw.tr('/', '_').tr("\0", '')
+  end
+
+  private
+
+  def title_for_filename_raw
     # special_list = [
     #   ReportTitle::ID_UNDEFINED,
     #   ReportTitle::ID_運用報告書,
