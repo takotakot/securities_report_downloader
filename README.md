@@ -26,17 +26,17 @@ Currently only `RAILS_ENV=development` is tested.
         $ cd securities_report_downloader
         $ bundle install --path vendor/bundle
 
-4. Database creation
+3. Database creation
     ```
     bin/rails db:create
     ```
 
-5. Database initialization
+4. Database initialization
     ```
     bin/rails db:migrate && bin/rails db:seed
     ```
 
-6. Save credentials like below:
+5. Save credentials like below:
 
         $ bin/rails credentials:edit
 
