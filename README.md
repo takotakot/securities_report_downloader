@@ -19,9 +19,7 @@
 
 Currently only `RAILS_ENV=development` is tested.
 
-1. git colne
-
-        $ bin/rails credentials:edit
+1. git clone
 
 2. bundle install
 
@@ -38,13 +36,16 @@ Currently only `RAILS_ENV=development` is tested.
     bin/rails db:migrate && bin/rails db:seed
     ```
 
-6. Seve credentials like below:
+6. Save credentials like below:
+
+        $ bin/rails credentials:edit
+
     ```
     sbisec:
       id: <<id here>>
       password: <<password here>>
-    driver_path: <<chromedriver path>>
-    download_path: <<rails dir for browser>>
+    driver_path: <<chromedriver path>>  # /usr/local/bin/chromedriver
+    download_path: <<rails dir for browser>>  # /home/test/sbisec_postub_downloader/
     ```
 
 ## Usage
