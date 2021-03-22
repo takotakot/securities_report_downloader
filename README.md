@@ -8,13 +8,13 @@
 
 **Requirements:**
 
-- **Ruby** 2.7.1 is tested
+- **Ruby** 2.7.1, 3.0.0 is tested
 - **Chrome** 83.0.4103.116 is tested
 - **ChromeDriver** 83.0.4103.39 is tested
 
 **Main technology:**
 
-- **Ruby on Rails** 6.0.3.2 is used
+- **Ruby on Rails** 6.0.3.5 is used
 - **Selenium::WebDriver::Chrome**
 
 Currently only `RAILS_ENV=development` is tested.
